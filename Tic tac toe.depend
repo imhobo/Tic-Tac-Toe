@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1385057231 source:g:\codes\tic tac toe\main.cpp
+	<iostream>
+	"SDL/SDL.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_ttf.h"
+	"SDL_rotozoom.h"
+	<time.h>
+
+1366370258 g:\codes\tic tac toe\sdl_rotozoom.h
+	<math.h>
+	"SDL/SDL.h"
+
+1385067057 source:c:\users\safalpandita\desktop\tic tac toe\main.cpp
+	<iostream>
+	"SDL/SDL.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_rotozoom.h"
+	<time.h>
+
+1366370260 c:\users\safalpandita\desktop\tic tac toe\sdl_rotozoom.h
+	<math.h>
+	"SDL/SDL.h"
+
