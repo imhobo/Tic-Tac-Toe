@@ -14,7 +14,7 @@ const int SCREEN_HEIGHT = 640;
 const int SCREEN_BPP = 32;
 const int sq_size=80;
 const int MENU_WIDTH = SCREEN_WIDTH-SCREEN_HEIGHT;
-int  players=0,AI_turn=1;                          //no of players and color of AI(for 1 player chess only)
+int  players=0,AI_turn=0;                          //no of players and color of AI(for 1 player chess only)
 
 int mouse_x,mouse_y,turn=0;
 char game[3][3];
@@ -70,6 +70,7 @@ int edge();
 int fork(char my);
 int corner(char opp);
 int def(char my,char opp);
+void choose_color();
 
 
 int main(int argc, char* args[])
@@ -83,7 +84,7 @@ int main(int argc, char* args[])
 
     while(!quit)
     {
-        if(turn == AI_turn)
+        if(turn == AI_turn&&players==1)
         {
             AI_func(game,turn,next_move);
         }
@@ -174,8 +175,8 @@ int load_files()
 
     font = TTF_OpenFont( "arabella.ttf", 32 );
     message = TTF_RenderText_Blended( font, "Turn : ", textWhite );
-    Z = TTF_RenderText_Blended( font, "The Great Z", textGreen );
-    X = TTF_RenderText_Blended( font, "The Dark X", textGreen );
+    Z = TTF_RenderText_Blended( font, "Zero  : O", textGreen );
+    X = TTF_RenderText_Blended( font, "Cross : X", textGreen );
     restart = TTF_RenderText_Blended( font, "Press 'R' to restart", textWhite );
     thatsdraw = TTF_RenderText_Blended( font, "Thats a Draw", textGreen );
     choose = TTF_RenderText_Blended( font, "Choose your piece :", textWhite );
@@ -222,7 +223,7 @@ void welcome()
                 {
                     case SDLK_a:
                         players=1;
-                        //choose_color();
+                        choose_color();
                         leave=true;
                         break;
                     case SDLK_b:
@@ -286,7 +287,7 @@ void AI_func(char game[3][3],int AI_turn,int next_move[2])
     int temp;
     char my;
     if(AI_turn==0)
-        my='0';
+        my='O';
     else
         my='X';
 
@@ -757,6 +758,45 @@ void draw_updated_game (int turn,int next_move[])
     }
 
     if( SDL_Flip( screen ) == -1 )return;
+
+}
+
+void choose_color()
+{
+
+    apply_surface( 640, 0, back, screen );
+    apply_surface( 640, 150, choose, screen );
+    apply_surface( 640, 250, Z, screen );
+    apply_surface( 640, 350, X, screen );
+
+
+    if( SDL_Flip( screen ) == -1 )return ;
+
+    bool leave=false;
+    while(!leave)
+     {
+         if( event.type == SDL_QUIT )break;
+         if( SDL_PollEvent( &event ) )
+         {
+            if( event.type == SDL_KEYDOWN )
+            {
+                switch( event.key.keysym.sym )
+                {
+                    case SDLK_o:
+                        AI_turn=1;
+                        leave=true;
+                        break;
+                    case SDLK_x:
+                        AI_turn=0;
+                        leave=true;
+
+                    default : continue;
+                }
+            }
+         }
+     }
+
+
 
 }
 
